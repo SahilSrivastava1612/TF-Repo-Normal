@@ -1,4 +1,4 @@
-resource "azurerm_ms_sql_server" "sql_serverblock1" {
+resource "azurerm_mssql_server" "sql_serverblock1" {
     for_each = var.sql_servers
     name                         = each.value.name
     resource_group_name          = each.value.resource_group_name
