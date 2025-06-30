@@ -1,8 +1,6 @@
-resource "azurerm_ms_sql_database" "sql_databaseblock" {
+resource "azurerm_mssql_database" "sql_databaseblock" {
     for_each = var.sql_databases
     name = each.value.name
-    resource_group_name = each.value.resource_group_name
-    location = each.value.location
-    server_name = each.value.server_name
+    server_id = data.azurerm_mssql_server.datasqlserverblock1.id
     sku_name = each.value.sku_name
 }

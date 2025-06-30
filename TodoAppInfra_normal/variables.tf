@@ -3,29 +3,29 @@ variable "resource_group" {
 }
 
 variable "key_vault" {
-  type = map (any)
+  type = map(any)
 }
 
 variable "vnet" {
-  type = map (any)
+  type = map(any)
 }
 
 variable "subnet" {
-  type = map (any)
+  type = map(any)
 }
 
 variable "sql_server" {
-  type = map (any)
+  type = map(any)
 }
 
 variable "sql_server_database" {
-  type = map (any)
+  type = map(any)
 }
 
 variable "pip" {
-  type = map (any)
+  type = map(any)
 }
 
 variable "vm" {
-  type = map (any)
+  type = map(any)
 }

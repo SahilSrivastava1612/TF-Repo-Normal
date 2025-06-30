@@ -25,6 +25,13 @@ resource "azurerm_network_interface" "nicblock2" {
     }   
 }
 
+locals {
+  vm_nic_map = {
+    vm1 = azurerm_network_interface.nicblock1.id
+    vm2 = azurerm_network_interface.nicblock2.id
+  }
+}
+
 resource "azurerm_linux_virtual_machine" "linvmblocka" {
   for_each = var.vms
   name                = each.value.name
@@ -38,19 +45,19 @@ resource "azurerm_linux_virtual_machine" "linvmblocka" {
   
 
   network_interface_ids = [
-  each.key == "vm1" ? azurerm_network_interface.nicblock1[each.key].id : azurerm_network_interface.nicblock2[each.key].id
+    local.vm_nic_map[each.key]
   ]
   
 
   os_disk {
-    caching              = each.value.os_disk.caching
-    storage_account_type = each.value.os_disk.storage_account_type
+    caching              = each.value.caching
+    storage_account_type = each.value.storage_account_type
   }
 
   source_image_reference {   
-    publisher = each.value.source_image_reference.publisher #publisher ID from Azure Marketplace
-    offer     = each.value.source_image_reference.offer  # offer ID from Azure Marketplace
-    sku       = each.value.source_image_reference.sku  # SKU or plan ID from Azure Marketplace
-    version   = each.value.source_image_reference.version  # version of the image, e.g., "latest"  
+    publisher = each.value.publisher #publisher ID from Azure Marketplace
+    offer     = each.value.offer  # offer ID from Azure Marketplace
+    sku       = each.value.sku  # SKU or plan ID from Azure Marketplace
+    version   = each.value.version  # version of the image, e.g., "latest"  
   }
 }

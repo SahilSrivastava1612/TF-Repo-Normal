@@ -4,19 +4,19 @@ resource "azurerm_network_security_group" "nsgblock" {
     resource_group_name = "rg-prod-000a1"
 
     security_rule {
-        name                       = "Allow-HTTP-SSH"
+        name                       = "AllowHTTPSSH"
         priority                   = 100
         direction                  = "Inbound"
         access                     = "Allow"
         protocol                   = "Tcp"
         source_port_range          = "*"
-        destination_port_range     = ["22","80"]
+        destination_port_ranges     = ["22", "80"]
         source_address_prefix      = "*"
         destination_address_prefix = "*"
     }
 
     security_rule {
-        name                       = "Allow-HTTP"
+        name                       = "AllowHTTP"
         priority                   = 110
         direction                  = "Outbound"
         access                     = "Allow"
